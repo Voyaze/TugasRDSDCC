@@ -24,9 +24,9 @@ func main() {
 		fmt.Println("Database is not connected")
 		panic(err)
 	}
-	
+
 	http.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Welcome to the Home Page")
+		fmt.Fprintf(w, "Welcome to the Home Page 2.0")
 	})
 
 	http.HandleFunc("/gameinfo", func(w http.ResponseWriter, r *http.Request) {
