@@ -21,6 +21,7 @@ func main() {
 		getGameInfo(id)
 	})
 	log.Fatal(http.ListenAndServe(":8080", nil))
+
 	Database, err := sql.Open("mysql", "admin:12345678@tcp(databaserds.cgxx59d0ugdf.us-east-1.rds.amazonaws.com:3306)/Games")
 	if err != nil {
 		fmt.Println("Database is not found")
