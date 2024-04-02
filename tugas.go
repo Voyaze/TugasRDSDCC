@@ -44,15 +44,17 @@ func getGameInfo(gameId string) {
 	}
 	defer rows.Close()
 
-	var GameID string
-	var GameName string
-	var GameGenre string
-	err = rows.Scan(&GameID, &GameName, &GameGenre)
-	if err != nil {
-		fmt.Println("Error in Scan")
-		panic(err)
+	for rows.Next() {
+		var gameID string
+		var gameName string
+		var gameGenre string
+		err = rows.Scan(&gameID, &gameName, &gameGenre)
+		if err != nil {
+			fmt.Println("Error in Scan")
+			panic(err)
+		}
+		fmt.Println("Game ID: ", gameID)
+		fmt.Println("Game Name: ", gameName)
+		fmt.Println("Game Genre: ", gameGenre)
 	}
-	fmt.Println("GameID: ", GameID)
-	fmt.Println("GameName: ", GameName)
-	fmt.Println("GameGenre: ", GameGenre)
 }
