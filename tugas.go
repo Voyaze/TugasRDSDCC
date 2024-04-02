@@ -30,25 +30,31 @@ func main() {
 	})
 
 	http.HandleFunc("/gameinfo", func(w http.ResponseWriter, r *http.Request) {
-		id := r.URL.Query().Get("gameId")
-		var gameID string
-		var gameName string
-		var gameGenre string
-
-		ginfo, err := Database.Prepare("SELECT * FROM GameInformation WHERE GameID = ?")
+		gameId := r.URL.Query().Get("gameId")
+		query := "SELECT * FROM GameInformation WHERE GameID = ?"
+		rows, err := Database.Query(query, gameId)
 		if err != nil {
 			fmt.Println("Error in Query")
-			panic(err)
+			return
+		}
+		defer rows.Close()
+
+		var GameID string
+		var GameName string
+		var GameGenre string
+		if !rows.Next() {
+			fmt.Fprintln(w, "No data with that ID")
+			return
 		}
 
-		err = ginfo.QueryRow(id).Scan(&gameID, &gameName, &gameGenre)
+		err = rows.Scan(&GameID, &GameName, &GameGenre)
 		if err != nil {
-			fmt.Fprintf(w, "No Data")
-			panic(err)
+			fmt.Fprintln(w, "Error in scanning")
+			return
 		}
-		fmt.Fprintf(w, "Game ID: %s\n", gameID)
-		fmt.Fprintf(w, "Game Name: %s\n", gameName)
-		fmt.Fprintf(w, "Game Genre: %s\n", gameGenre)
+		fmt.Fprintln(w, "GameID: ", GameID)
+		fmt.Fprintln(w, "GameName: ", GameName)
+		fmt.Fprintln(w, "GameGenre: ", GameGenre)
 	})
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
