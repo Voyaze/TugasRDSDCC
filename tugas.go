@@ -12,16 +12,6 @@ import (
 var Database *sql.DB = nil
 
 func main() {
-	http.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Welcome to the Home Page")
-	})
-
-	http.HandleFunc("/gameinfo", func(w http.ResponseWriter, r *http.Request) {
-		id := r.URL.Query().Get("gameId")
-		getGameInfo(id)
-	})
-	log.Fatal(http.ListenAndServe(":8080", nil))
-
 	Database, err := sql.Open("mysql", "admin:12345678@tcp(databaserds.cgxx59d0ugdf.us-east-1.rds.amazonaws.com:3306)/Games")
 	if err != nil {
 		fmt.Println("Database is not found")
@@ -34,6 +24,16 @@ func main() {
 		fmt.Println("Database is not connected")
 		panic(err)
 	}
+	
+	http.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Welcome to the Home Page")
+	})
+
+	http.HandleFunc("/gameinfo", func(w http.ResponseWriter, r *http.Request) {
+		id := r.URL.Query().Get("gameId")
+		getGameInfo(id)
+	})
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func getGameInfo(gameId string) {
