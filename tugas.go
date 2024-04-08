@@ -26,7 +26,7 @@ func main() {
 	}
 
 	http.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Welcome to the Home Page 3.0")
+		fmt.Fprintf(w, "Welcome to the Home Page")
 	})
 
 	http.HandleFunc("/gameinfo", func(w http.ResponseWriter, r *http.Request) {
