@@ -12,7 +12,7 @@ import (
 var Database *sql.DB = nil
 
 func main() {
-	Database, err := sql.Open("mysql", "admin:12345678@tcp(databaserds.cgxx59d0ugdf.us-east-1.rds.amazonaws.com:3306)/Games")
+	Database, err := sql.Open("mysql", "Marcello:2602054184@tcp(dccdb.cgxx59d0ugdf.us-east-1.rds.amazonaws.com:3306)/gamesdb")
 	if err != nil {
 		fmt.Println("Database is not found")
 		panic(err)
