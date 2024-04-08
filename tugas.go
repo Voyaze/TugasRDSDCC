@@ -31,7 +31,7 @@ func main() {
 
 	http.HandleFunc("/gameinfo", func(w http.ResponseWriter, r *http.Request) {
 		gameId := r.URL.Query().Get("gameId")
-		query := "SELECT * FROM Gamesinfo WHERE GameID = ?"
+		query := "SELECT * FROM gamesinfo WHERE GameID = ?"
 		rows, err := Database.Query(query, gameId)
 		if err != nil {
 			fmt.Println("Error in Query")
